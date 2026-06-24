@@ -1,0 +1,151 @@
+{
+  "gift128_test_vectors": [
+    {
+      "pt": "00000000000000000000000000000000",
+      "key": "00000000000000000000000000000000",
+      "expected": "cd0bd738388ad3f668b15a36ceb6ff92",
+      "got": "cd0bd738388ad3f668b15a36ceb6ff92",
+      "ok": true
+    },
+    {
+      "pt": "fedcba9876543210fedcba9876543210",
+      "key": "fedcba9876543210fedcba9876543210",
+      "expected": "8422241a6dbf5a9346af468409ee0152",
+      "got": "8422241a6dbf5a9346af468409ee0152",
+      "ok": true
+    },
+    {
+      "pt": "e39c141fa57dba43f08a85b6a91f86c1",
+      "key": "d0f5c59a7700d3e799028fa9f90ad837",
+      "expected": "13ede67cbdcc3dbf400a62d6977265ea",
+      "got": "13ede67cbdcc3dbf400a62d6977265ea",
+      "ok": true
+    }
+  ],
+  "gift128_one_round_zero": "91111111111111111111111111111119",
+  "gift128_two_round_zero": "6aaaaaaa8aaaaaaebaaaaaa8aaaaaa23",
+  "ddt_row_sums_ok": true,
+  "ddt_nonzero_values_for_nonzero_dx": [
+    2,
+    4,
+    6
+  ],
+  "sat_low_round_collision_checks": [
+    {
+      "condition": "COL",
+      "rounds": 1,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1088,
+      "num_clauses": 131969,
+      "h0": "00000000000000000000000000000000",
+      "dh": "00000000000000000000000000000000",
+      "m0": "ffffffffffffffffffffffffffffffff",
+      "dm": "ffffffff00000000ffffffff00000000",
+      "h1": "00000000000000000000000000000000",
+      "m1": "00000000ffffffff00000000ffffffff",
+      "out0": "f777777777777777777777777777777f",
+      "out1": "f777777777777777777777777777777f",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    },
+    {
+      "condition": "SFS",
+      "rounds": 1,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1088,
+      "num_clauses": 131969,
+      "h0": "ffffffffffffffffffffffffffffffff",
+      "dh": "ffffffffffffffffffffffffffffffff",
+      "m0": "0123456789abcdeffedcba9876543210",
+      "dm": "00000000000000000000000000000000",
+      "h1": "00000000000000000000000000000000",
+      "m1": "0123456789abcdeffedcba9876543210",
+      "out0": "d333533553535355553355355553555d",
+      "out1": "d333533553535355553355355553555d",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    },
+    {
+      "condition": "FS",
+      "rounds": 1,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1088,
+      "num_clauses": 131713,
+      "h0": "ffffffffffffffffffffffffffffffff",
+      "dh": "ffffffffffffffffffffffffffffffff",
+      "m0": "ffffffffffffffffffffffffffffffff",
+      "dm": "ffffffff00000000ffffffff00000000",
+      "h1": "00000000000000000000000000000000",
+      "m1": "00000000ffffffff00000000ffffffff",
+      "out0": "f777777777777777777777777777777f",
+      "out1": "f777777777777777777777777777777f",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    },
+    {
+      "condition": "COL",
+      "rounds": 2,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1664,
+      "num_clauses": 263425,
+      "h0": "00000000000000000000000000000000",
+      "dh": "00000000000000000000000000000000",
+      "m0": "ffffffffffffffffffffffffffffffff",
+      "dm": "7ffeffff00000000ff7ffeff7ffffffe",
+      "h1": "00000000000000000000000000000000",
+      "m1": "80010000ffffffff0080010080000001",
+      "out0": "3fffffffdffffffbeffffffdffffff76",
+      "out1": "3fffffffdffffffbeffffffdffffff76",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    },
+    {
+      "condition": "SFS",
+      "rounds": 2,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1664,
+      "num_clauses": 263425,
+      "h0": "e842ad556e5599df8fafcbd479ed4e73",
+      "dh": "1f28be622f9f4674ec05f2626ed7d33e",
+      "m0": "0123456789abcdeffedcba9876543210",
+      "dm": "00000000000000000000000000000000",
+      "h1": "f76a133741cadfab63aa39b6173a9d4d",
+      "m1": "0123456789abcdeffedcba9876543210",
+      "out0": "f4f80ec55a84fe1eef967370b0d6317c",
+      "out1": "f4f80ec55a84fe1eef967370b0d6317c",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    },
+    {
+      "condition": "FS",
+      "rounds": 2,
+      "sat_status": "SAT",
+      "model": "difference_value",
+      "num_vars": 1664,
+      "num_clauses": 263169,
+      "h0": "ffffffffffffffffffffffffffffffff",
+      "dh": "ffffffffffffffffffffffffffffffff",
+      "m0": "ffffffffffffffffffffffffffffffff",
+      "dm": "0000000000000000ff7ffeff7ffffffe",
+      "h1": "00000000000000000000000000000000",
+      "m1": "ffffffffffffffff0080010080000001",
+      "out0": "3bbbbbbb9bbbbbbbabbbbbb9bbbbbb32",
+      "out1": "3bbbbbbb9bbbbbbbabbbbbb9bbbbbb32",
+      "direct_pass": true,
+      "sat_and_direct_agree": true
+    }
+  ],
+  "all_sat_direct_agree": true,
+  "toy_cipher_outputs_with_collision_class": 16,
+  "projected_count_toy": {
+    "bruteforce": 3,
+    "cadical195_incremental": 3,
+    "pyganak": 3,
+    "pyganak_version": "2.6.3"
+  }
+}
