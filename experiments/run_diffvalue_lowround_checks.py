@@ -13,8 +13,8 @@ try:
 except Exception:
     PYGANAK_VERSION = "unknown"
 
-GIFT_S = [1, 10, 4, 12, 6, 15, 3, 9, 2, 13, 11, 7, 5, 0, 8, 14]
-GIFT_P = [
+GIFT_S = [1, 10, 4, 12, 6, 15, 3, 9, 2, 13, 11, 7, 5, 0, 8, 14] #S-box
+GIFT_P = [ 
     0,
     33,
     66,
@@ -316,7 +316,7 @@ def gift128_encrypt_rounds(plaintext_hex: str, key_hex: str, rounds: int) -> str
 
 
 def mmo_compress_gift128_rounds(h: str, m: str, rounds: int) -> str:
-    return xor_hex(gift128_encrypt_rounds(h, m, rounds), h)
+    return xor_hex(gift128_encrypt_rounds(m, h, rounds), m) #圧縮関数
 
 
 def verify_collision_rounds(h0: str, m0: str, h1: str, m1: str, rounds: int) -> bool:
@@ -495,7 +495,7 @@ def read_bits(vals: Dict[int, bool], bits: List[int]) -> str:
     return bits_le_to_hex([1 if vals[v] else 0 for v in bits])
 
 
-def sat_find_collision_diff_value(condition: str, rounds: int) -> Dict[str, object]:
+def sat_find_collision_diff_value(condition: str, rounds: int) -> Dict[str, object]: #衝突探索
     cnf = CNF()
     pool = IDPool()
     h = [pool.id() for _ in range(128)]
@@ -514,9 +514,9 @@ def sat_find_collision_diff_value(condition: str, rounds: int) -> Dict[str, obje
         force_nonzero(cnf, dh + dm)
     else:
         raise ValueError(condition)
-    c, dc = encrypt_diff_value_cnf(cnf, pool, h, dh, m, dm, rounds)
-    for a, b in zip(dc, dh):
-        add_eq(cnf, a, b)  # Delta(E_M(H) xor H) = dc xor dh = 0
+    c, dc = encrypt_diff_value_cnf(cnf, pool, m, dm, h, dh, rounds)
+    for a, b in zip(dc, dm):
+        add_eq(cnf, a, b)  # Delta(E_H(M) xor M) = dc xor dm = 0
     with Cadical195(bootstrap_with=cnf.clauses) as solver:
         sat = solver.solve()
         if not sat:
@@ -558,7 +558,7 @@ def sat_find_collision_diff_value(condition: str, rounds: int) -> Dict[str, obje
 
 
 def toy_cipher_mmo(h: int, m: int) -> int:
-    return GIFT_S[h ^ m] ^ h
+    return GIFT_S[m ^ h] ^ m #圧縮関数
 
 
 def projected_count_toy_bruteforce() -> int:
@@ -635,7 +635,7 @@ def main() -> None:
         },
     }
     Path("results").mkdir(exist_ok=True)
-    Path("results/gift128_lowround_diffvalue_checks_v13.json").write_text(
+    Path("results/gift128_lowround_diffvalue_checks_mmo.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     print(json.dumps(summary, indent=2, ensure_ascii=False))
