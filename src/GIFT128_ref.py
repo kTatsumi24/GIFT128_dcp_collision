@@ -110,8 +110,8 @@ def roundfunction_gift128(pt_128bits, key_128bits, r, SBOX, GIFT_P, GIFT_RC):
             (state[4*i + 1] << 1) |
             state[4*i + 0]
         )
-    print(f"round: {r} \npt: {nibble_list}")
-    print("key: ",key_128bits)
+    #print(f"round: {r} \npt: {nibble_list}")
+    #print("key: ",key_128bits)
 
     #subcells
     state = sbox(nibble_list, SBOX)
@@ -165,7 +165,7 @@ def encrypt(pt, key, round_num):
 
     #暗号化
 
-    #フォーマットされていない（＝int型）なら平文、鍵をフォーマット
+    #フォーマットされていない（＝str型）なら平文、鍵をフォーマット
     if type(pt) == str:
         pt = int(pt, 16)
     if type(key) == str:
@@ -174,6 +174,7 @@ def encrypt(pt, key, round_num):
     pt_128bits = [int(b) for b in reversed(format(pt, '0128b'))]
     key_128bits = [int(b) for b in reversed(format(key, '0128b'))]
 
+    #実際の暗号化、ラウンド関数を繰りかえす
     for i in range(round_num):
         pt_128bits, key_128bits = roundfunction_gift128(pt_128bits, key_128bits, i, SBOX, GIFT_P, GIFT_RC)
 
